@@ -1,19 +1,32 @@
-[![License](https://img.shields.io/github/license/zerodayz/citellus.svg)](LICENSE)
-[![Build Status](https://travis-ci.org/zerodayz/citellus.svg?branch=master)](https://travis-ci.org/zerodayz/citellus)
-[![Coverage Status](https://coveralls.io/repos/github/zerodayz/citellus/badge.svg?branch=master)](https://coveralls.io/github/zerodayz/citellus?branch=master)
-[![Release status](https://img.shields.io/github/release/zerodayz/citellus.svg)](https://github.com/zerodayz/citellus/releases)
+[![License][license-badge]](LICENSE)
+[![Build Status][travis-badge]](https://travis-ci.org/zerodayz/citellus)
+[![Coverage Status][coverage-bade]][coverage-status]
+[![Release status][release-badge]][releases]
+
+[license-badge]: https://img.shields.io/github/license/zerodayz/citellus.svg
+[travis-badge]: https://travis-ci.org/zerodayz/citellus.svg?branch=master
+[coverage-badge]:
+  https://coveralls.io/repos/github/zerodayz/citellus/badge.svg?branch=master
+[coverage-status]: https://coveralls.io/github/zerodayz/citellus?branch=master
+[release-badge]: https://img.shields.io/github/release/zerodayz/citellus.svg)
+[releases]: https://github.com/zerodayz/citellus/releases
 
 # Vote For Sydney 2017 Presentation
 https://www.openstack.org/summit/sydney-2017/vote-for-speakers#/19095
 
 # Introduction
 
-Citellus is a program that should help with system configuration validation on either live system or any sort of snapshot of the filesystem.
+Citellus is a program that should help with system configuration
+validation on either live system or any sort of snapshot of the
+filesystem.
 
-Please if you have any idea on any improvements please do not hesitate to open an issue.
+Please if you have any idea on any improvements please do not hesitate
+to open an issue.
 
 ## Usage help
-We are developing framework in python, the bash framework has been deprecated. Python framework is the only supported framework.
+
+We are developing framework in python, the bash framework has been
+deprecated. Python framework is the only supported framework.
 
 ```
 # ./citellus.py -h
@@ -37,15 +50,17 @@ optional arguments:
 
 ## Doing a live check example
 
-This is an example of execution of Citellus using all openstack and pacemaker tests collections.
+This is an example of execution of Citellus using all openstack and
+pacemaker tests collections.
+
 ```
 # ./citellus.py -v -l plugins/openstack/ plugins/pacemaker/
-_________ .__  __         .__  .__                
+_________ .__  __         .__  .__
 \_   ___ \|__|/  |_  ____ |  | |  |  __ __  ______
 /    \  \/|  \   __\/ __ \|  | |  | |  |  \/  ___/
-\     \___|  ||  | \  ___/|  |_|  |_|  |  /\___ \ 
+\     \___|  ||  | \  ___/|  |_|  |_|  |  /\___ \
  \______  /__||__|  \___  >____/____/____//____  >
-        \/              \/                     \/ 
+        \/              \/                     \/
 found #19 tests at plugins/openstack/, plugins/pacemaker/
 mode: live
 # plugins/openstack/debug.sh: failed
@@ -83,20 +98,20 @@ mode: live
     disabled in /etc/keystone/keystone.conf
     disabled in /etc/keystone/logging.conf
     disabled in /etc/heat/heat.conf
-    
+
 # plugins/openstack/traceback.sh: failed
     /var/log/aodh/aodh-dbsync.log (1 times)
     /var/log/ceilometer/agent-notification.log (1 times)
     /var/log/ceilometer/alarm-evaluator.log (1 times)
     /var/log/nova/nova-cert.log (56 times)
     /var/log/nova/nova-conductor.log (1 times)
-    
+
 # plugins/openstack/network/sriov.sh: skipped
     works only against fs snapshot now
-    
+
 # plugins/openstack/rabbitmq/file_descriptors.sh: skipped
     works only against controller node
-    
+
 # plugins/openstack/rabbitmq/rpc_issues.sh: failed
     /var/log/aodh/listener.log (4 times)
     /var/log/aodh/notifier.log (4 times)
@@ -104,38 +119,44 @@ mode: live
     /var/log/ceilometer/alarm-notifier.log (8 times)
     /var/log/ceilometer/collector.log (22 times)
     /var/log/nova/nova-cert.log (25 times)
-    
+
 # plugins/pacemaker/failed_actions.sh: skipped
     pacemaker is not running on this node
-    
+
 # plugins/pacemaker/fence_device.sh: skipped
     pacemaker is not running on this node
-    
+
 # plugins/pacemaker/nodes_number.sh: skipped
     pacemaker is not running on this node
-    
+
 # plugins/pacemaker/stonith_enabled.sh: skipped
     pacemaker is not running on this node
-    
+
 # plugins/pacemaker/stopped_resources.sh: skipped
     pacemaker is not running on this node
-    
+
 # ['/openstack/version.sh', '/openstack/crontab/heat_stack-purge.sh', '/openstack/crontab/keystone_cleanup.sh', '/openstack/hardware/memory.sh', '/openstack/iptables/metadata_redirect.sh', '/openstack/keystone/cleanup_last-run.sh', '/openstack/keystone/cleanup_runs.sh', '/openstack/mysql/keystone_tokendb.sh', '/openstack/systemd/services.sh']: okay
 ```
 
-And exactly the same execution against the fs snapshot, with one difference, omitting the ```-l``` and instead specifying the directory with fs snapshot.
+And exactly the same execution against the fs snapshot, with one
+difference, omitting the `-l` and instead specifying the directory
+with fs snapshot.
 
 ## Doing a fs snapshot check example
 
-This is an example of execution of Citellus using ```plugins/pacemaker``` and ```plugins/openstack``` collections against fs snapshot ```sosreport-controller-1.localdomain-20170705201135```
+This is an example of execution of Citellus using
+`plugins/pacemaker` and `plugins/openstack` collections
+against fs snapshot
+`sosreport-controller-1.localdomain-20170705201135`
+
 ```
 # ./citellus.py -v /root/sosreport-controller-1.localdomain-20170705201135/ plugins/openstack/ plugins/pacemaker/
-_________ .__  __         .__  .__                
+_________ .__  __         .__  .__
 \_   ___ \|__|/  |_  ____ |  | |  |  __ __  ______
 /    \  \/|  \   __\/ __ \|  | |  | |  |  \/  ___/
-\     \___|  ||  | \  ___/|  |_|  |_|  |  /\___ \ 
+\     \___|  ||  | \  ___/|  |_|  |_|  |  /\___ \
  \______  /__||__|  \___  >____/____/____//____  >
-        \/              \/                     \/ 
+        \/              \/                     \/
 found #19 tests at plugins/openstack/, plugins/pacemaker/
 mode: fs snapshot /root/sosreport-controller-1.localdomain-20170705201135/
 # plugins/openstack/debug.sh: failed
@@ -170,7 +191,7 @@ mode: fs snapshot /root/sosreport-controller-1.localdomain-20170705201135/
     disabled in /etc/swift/object-server.conf
     disabled in /etc/swift/proxy-server.conf
     disabled in /etc/swift/swift.conf
-    
+
 # plugins/openstack/traceback.sh: failed
     /var/log/ceilometer/alarm-evaluator.log (1907 times)
     /var/log/ceilometer/central.log (137 times)
@@ -181,23 +202,23 @@ mode: fs snapshot /root/sosreport-controller-1.localdomain-20170705201135/
     /var/log/nova/nova-consoleauth.log (5 times)
     /var/log/nova/nova-scheduler.log (1 times)
     /var/log/swift/swift.log (3 times)
-    
+
 # plugins/openstack/hardware/memory.sh: failed
     memory is lower than 16gb ram
-    
+
 # plugins/openstack/iptables/metadata_redirect.sh: skipped
     works on director node only
-    
+
 # plugins/openstack/mysql/keystone_tokendb.sh: skipped
     works on live-system only
-    
+
 # plugins/openstack/network/sriov.sh: failed
     virtual function is disabled
     vfio_iommu module is not loaded
     missing allow_unsafe_interrupts file - skipped
     missing intel_iommu=on on cmdline
     missing iommu=pt on cmdline
-    
+
 # plugins/openstack/rabbitmq/rpc_issues.sh: failed
     /var/log/ceilometer/agent-notification.log (2 times)
     /var/log/cinder/scheduler.log (6 times)
@@ -206,32 +227,35 @@ mode: fs snapshot /root/sosreport-controller-1.localdomain-20170705201135/
     /var/log/neutron/l3-agent.log (4 times)
     /var/log/nova/nova-conductor.log (14 times)
     /var/log/nova/nova-consoleauth.log (4 times)
-    
+
 # plugins/pacemaker/fence_device.sh: skipped
     works on live-system only
-    
+
 # plugins/pacemaker/stonith_enabled.sh: failed
 # plugins/pacemaker/stopped_resources.sh: failed
-# ['/openstack/version.sh', '/openstack/crontab/heat_stack-purge.sh', '/openstack/crontab/keystone_cleanup.sh', '/openstack/keystone/cleanup_last-run.sh', '/openstack/keystone/cleanup_runs.sh', '/openstack/rabbitmq/file_descriptors.sh', '/openstack/systemd/services.sh', '/pacemaker/failed_actions.sh', '/pacemaker/nodes_number.sh']: okay 
+# ['/openstack/version.sh', '/openstack/crontab/heat_stack-purge.sh', '/openstack/crontab/keystone_cleanup.sh', '/openstack/keystone/cleanup_last-run.sh', '/openstack/keystone/cleanup_runs.sh', '/openstack/rabbitmq/file_descriptors.sh', '/openstack/systemd/services.sh', '/pacemaker/failed_actions.sh', '/pacemaker/nodes_number.sh']: okay
 ```
 And example execution using filters
 
 ## Filters example
 
-This is an example of execution of Citellus using ```plugins/``` and filter ```pacemaker``` against fs snapshot ```sosreport-controller-1.localdomain-20170705201135```
+This is an example of execution of Citellus using `plugins/` and
+filter `pacemaker` against fs snapshot
+`sosreport-controller-1.localdomain-20170705201135`
+
 ```
 # ./citellus.py -v /root/sosreport-controller-1.localdomain-20170705201135/ plugins/ -f pacemaker
-_________ .__  __         .__  .__                
+_________ .__  __         .__  .__
 \_   ___ \|__|/  |_  ____ |  | |  |  __ __  ______
 /    \  \/|  \   __\/ __ \|  | |  | |  |  \/  ___/
-\     \___|  ||  | \  ___/|  |_|  |_|  |  /\___ \ 
+\     \___|  ||  | \  ___/|  |_|  |_|  |  /\___ \
  \______  /__||__|  \___  >____/____/____//____  >
-        \/              \/                     \/ 
+        \/              \/                     \/
 found #5 tests at plugins/
 mode: fs snapshot /root/sosreport-controller-1.localdomain-20170705201135/
 # plugins/pacemaker/fence_device.sh: skipped
     works on live-system only
-    
+
 # plugins/pacemaker/stonith_enabled.sh: failed
 # plugins/pacemaker/stopped_resources.sh: failed
 # ['/failed_actions.sh', '/nodes_number.sh']: okay
